@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AssetManager</name>
+    </assembly>
+    <members>
+        <member name="T:AssetManager.Controllers.ContentController">
+            <summary>
+            The controller responsible for returning content to the user
+            </summary>
+        </member>
+        <member name="M:AssetManager.Controllers.ContentController.GetFile(System.Guid)">
+            <summary>
+            Returns the file located under the guid returned by the File endpoints
+            </summary>
+            <param name="guid"> The guid of the sought after file</param>
+            <returns>The sought after file</returns>
+        </member>
+        <member name="T:AssetManager.Controllers.FileController">
+            <summary>
+            The controller responsible for file uploads and listings
+            </summary>
+        </member>
+        <member name="M:AssetManager.Controllers.FileController.AddFile(System.Collections.Generic.List{Microsoft.AspNetCore.Http.IFormFile})">
+            <summary>
+            Allows users to upload files specified in form-data/files
+            </summary>
+            <param name="files">The List of files that should be uploaded</param>
+            <returns>Nothing :) (hopefully)</returns>
+        </member>
+        <member name="M:AssetManager.Controllers.FileController.GetUsersItems">
+            <summary>
+            Returns all of the Files the user has Uploaded
+            </summary>
+            <returns>A list of the Files the user has Uploaded</returns>
+        </member>
+        <member name="T:AssetManager.Controllers.UserController">
+            <summary>
+            The controller responsible for managing the creation and deletion of users aswell as Authenthication
+            </summary>
+        </member>
+        <member name="M:AssetManager.Controllers.UserController.Login(AssetManager.Controllers.UserController.AuthenticationParams)">
+            <summary>
+            Allows the user to log in
+            </summary>
+            <param name="parameters">The shema of data required for a users login</param>
+            <returns> A jwt token to be used for Authorization </returns>
+        </member>
+        <member name="M:AssetManager.Controllers.UserController.Register(AssetManager.Controllers.UserController.AuthenticationParams)">
+            <summary>
+            Allows to create a new user
+            </summary>
+            <param name="parameters">The shema of data required for a users login</param>
+            <returns>Nothing :)</returns>
+        </member>
+        <member name="T:AssetManager.Migrations.yes">
+            <inheritdoc />
+        </member>
+        <member name="M:AssetManager.Migrations.yes.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:AssetManager.Migrations.yes.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:AssetManager.Migrations.yes.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:AssetManager.Models.File">
+            <summary>
+            Describes the file object which is stored inside the database
+            </summary>
+        </member>
+        <member name="P:AssetManager.Models.File.Guid">
+            <summary>
+            The guid the document is to be referenced by
+            </summary>
+        </member>
+        <member name="P:AssetManager.Models.File.Id">
+            <summary>
+            The primary database Id
+            Do not touch :)
+            </summary>
+        </member>
+        <member name="P:AssetManager.Models.File.Md5">
+            <summary>
+            The computed md5 checksum
+            </summary>
+        </member>
+        <member name="P:AssetManager.Models.File.Name">
+            <summary>
+            The name of the file
+            </summary>
+        </member>
+        <member name="P:AssetManager.Models.File.User">
+            <summary>
+            The uploader
+            </summary>
+        </member>
+        <member name="T:AssetManager.Models.User">
+            <summary>
+            The database user object
+            </summary>
+        </member>
+        <member name="P:AssetManager.Models.User.Id">
+            <summary>
+            The primary database Id
+            </summary>
+        </member>
+        <member name="P:AssetManager.Models.User.Name">
+            <summary>
+            The username
+            </summary>
+        </member>
+        <member name="P:AssetManager.Models.User.Password">
+            <summary>
+            Definitly not the plain text password the user entered *cough cough*
+            TODO: Fix that maybe
+            </summary>
+        </member>
+    </members>
+</doc>
