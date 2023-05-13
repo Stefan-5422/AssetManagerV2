@@ -65,6 +65,18 @@
         <member name="M:AssetManager.Migrations.yes.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:AssetManager.Migrations.yes2">
+            <inheritdoc />
+        </member>
+        <member name="M:AssetManager.Migrations.yes2.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:AssetManager.Migrations.yes2.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:AssetManager.Migrations.yes2.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
         <member name="T:AssetManager.Models.File">
             <summary>
             Describes the file object which is stored inside the database

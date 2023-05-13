@@ -383,7 +383,7 @@ files:
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|object|false|none|
-|» files|body|[string]|false|none|
+|ï¿½ files|body|[string]|false|none|
 
 > Example responses
 
@@ -968,8 +968,8 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|name|string¦null|false|none|none|
-|password|string¦null|false|none|none|
+|name|stringï¿½null|false|none|none|
+|password|stringï¿½null|false|none|none|
 
 <h2 id="tocS_File">File</h2>
 <!-- backwards compatibility -->
@@ -1043,7 +1043,7 @@ Describes the file object which is stored inside the database
 |canRead|boolean|false|read-only|none|
 |canWrite|boolean|false|read-only|none|
 |safeFileHandle|[SafeFileHandle](#schemasafefilehandle)|false|none|none|
-|name|string¦null|false|read-only|none|
+|name|stringï¿½null|false|read-only|none|
 |isAsync|boolean|false|read-only|none|
 |length|integer(int64)|false|read-only|none|
 |position|integer(int64)|false|none|none|
@@ -1090,11 +1090,11 @@ Describes the file object which is stored inside the database
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |**additionalProperties**|any|false|none|none|
-|type|string¦null|false|none|none|
-|title|string¦null|false|none|none|
-|status|integer(int32)¦null|false|none|none|
-|detail|string¦null|false|none|none|
-|instance|string¦null|false|none|none|
+|type|stringï¿½null|false|none|none|
+|title|stringï¿½null|false|none|none|
+|status|integer(int32)ï¿½null|false|none|none|
+|detail|stringï¿½null|false|none|none|
+|instance|stringï¿½null|false|none|none|
 
 <h2 id="tocS_SafeFileHandle">SafeFileHandle</h2>
 <!-- backwards compatibility -->
