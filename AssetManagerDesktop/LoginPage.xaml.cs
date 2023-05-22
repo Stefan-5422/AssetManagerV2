@@ -29,20 +29,23 @@ namespace AssetManagerDesktop
     public partial class LoginPage : UserControl, INotifyPropertyChanged
     {
         public event EventHandler LoginSuccess;
+
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        public string Password { get => PasswordBox.Password; set => _ = value; }
 
         public string ServerAddress
         {
             get => userConfigProvider.Config.ServerName;
             set => userConfigProvider.Config.ServerName = value;
         }
+
         public string Username
         {
             get => userConfigProvider.Config.UserName;
             set => userConfigProvider.Config.UserName = value;
         }
 
-        public string Password { get; set; }
         private readonly HttpClient httpClient;
         private readonly UserConfigProvider userConfigProvider;
 
@@ -59,6 +62,33 @@ namespace AssetManagerDesktop
 
             InitializeComponent();
             DataContext = this;
+        }
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
+        private void ChangeServerButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ChangeServerWindow.Show();
+        }
+
+        private void ChangeServerSubmit_OnClick(object sender, RoutedEventArgs e)
+        {
+            ServerAddress = ChangeServerTextBox.Text;
+            userConfigProvider.Updated();
+            OnPropertyChanged("ServerAddress");
+            //TODO: Check if Server is valid
+            ChangeServerWindow.Close();
         }
 
         private async void LoginButton_OnClick(object sender, RoutedEventArgs e)
@@ -80,7 +110,6 @@ namespace AssetManagerDesktop
                     userConfigProvider.Config.ApiToken = await response.Content.ReadAsStringAsync();
                     LoginSuccess.Invoke(this, EventArgs.Empty);
                 }
-
             }
             catch (HttpRequestException httpRequestException)
             {
@@ -90,8 +119,8 @@ namespace AssetManagerDesktop
             {
                 Debug.WriteLine(exception.StackTrace);
             }
-
         }
+
         private async void RegisterButton_OnClick(object sender, RoutedEventArgs e)
         {
             try
@@ -113,32 +142,6 @@ namespace AssetManagerDesktop
             {
                 Debug.WriteLine(exception.StackTrace);
             }
-        }
-
-        private void ChangeServerButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            ChangeServerWindow.Show();
-        }
-
-        private void ChangeServerSubmit_OnClick(object sender, RoutedEventArgs e)
-        {
-            ServerAddress = ChangeServerTextBox.Text;
-            userConfigProvider.Updated();
-            OnPropertyChanged("ServerAddress");
-            //TODO: Check if Server is valid
-            ChangeServerWindow.Close();
-        }
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(propertyName);
-            return true;
         }
     }
 }

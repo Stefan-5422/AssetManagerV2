@@ -10,22 +10,33 @@ using System.Threading.Tasks;
 
 namespace AssetManagerDesktop.Services.Implementations
 {
+    [Serializable]
+    public class UserConfig
+    {
+        [JsonIgnore]
+        public string ApiToken { get; set; } = string.Empty;
+
+        public string ServerName { get; set; } = String.Empty;
+        public string UserName { get; set; } = string.Empty;
+    }
+
     public class UserConfigProvider
     {
         public event EventHandler UserConfigUpdated;
+
         public UserConfig Config { get; private set; }
 
         public UserConfigProvider()
         {
             if (File.Exists("./config"))
                 Config = JsonSerializer.Deserialize<UserConfig>(File.OpenRead("./config")) ?? new UserConfig();
-            else 
+            else
                 Config = new UserConfig();
         }
 
         public void Deconstruct()
         {
-            using FileStream f = File.OpenWrite("./config");
+            using FileStream f = File.Open("./config", FileMode.Create);
             JsonSerializer.Serialize(f, Config);
         }
 
@@ -33,14 +44,5 @@ namespace AssetManagerDesktop.Services.Implementations
         {
             UserConfigUpdated?.Invoke(caller, EventArgs.Empty);
         }
-    }
-
-    [Serializable]
-    public class UserConfig
-    {
-        public string ServerName { get; set; } = String.Empty;
-        public string UserName { get; set; } = string.Empty;
-        [JsonIgnore]
-        public string ApiToken { get; set; } = string.Empty;
     }
 }

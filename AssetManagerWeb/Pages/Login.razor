@@ -1,23 +1,62 @@
 ﻿@page "/login"
+@using Blazored.LocalStorage
+@inject HttpClient httpclient
+@inject ILocalStorageService localStorageService
+@inject NavigationManager navigator
+@inject ILogger<Login> logger
 
 <PageTitle>Login</PageTitle>
 
 <div style="justify-items: center; width: 33%">
 	<h1>Login</h1>
 	<div style="display: flex; flex-direction: column; align-items: center">
-		<input placeholder="Username" />
-		<input placeholder="Password" type="password" />
+		<input @bind-value=username placeholder="Username" />
+		<input @bind-value=password placeholder="Password" type="password" />
 	</div>
 	<div style="display: flex; flex-direction: row; justify-content: space-around;">
 		<button class="btn btn-primary" @onclick="LoginButton">Login</button>
-		<button class="btn btn-primary" @onclick="LoginButton">Register</button>
+		<button class="btn btn-primary" @onclick="RegisterButton">Register</button>
 	</div>
 </div>
 
 
 @code {
 
-	private void LoginButton()
+	private string username = String.Empty;
+	private string password = String.Empty;
+
+	private async void LoginButton()
 	{
+		Dictionary<string, string> values = new()
+		{
+			{"name", username},
+			{"password", password}
+		};
+
+		HttpResponseMessage msg = await httpclient.PostAsJsonAsync("/User/Login",values);
+
+		logger.LogInformation(await msg.Content.ReadAsStringAsync());
+
+		if(msg.IsSuccessStatusCode)
+		{
+			await localStorageService.SetItemAsStringAsync("api-token",await msg.Content.ReadAsStringAsync());
+			navigator.NavigateTo("/");
+		}
+	}
+
+	private async void RegisterButton()
+	{
+		Dictionary<string, string> values = new()
+		{
+			{"name", username},
+			{"password", password}
+		};
+
+		HttpResponseMessage msg = await httpclient.PostAsJsonAsync("/User/Register", values);
+
+		if(!msg.IsSuccessStatusCode)
+		{
+			//TODO: Give the user some rich feedback
+		}
 	}
 }

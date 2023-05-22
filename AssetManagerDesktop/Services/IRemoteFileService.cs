@@ -8,8 +8,10 @@ namespace AssetManagerDesktop.Services
 {
     public interface IRemoteFileService
     {
-        Task<List<RemoteFile>> GetRemoteFiles();
+        Task DownloadRemoteFile(string guid);
 
-        void SendRemoteFiles(List<string> files);
+        Task<List<Models.RemoteFile>> GetRemoteFiles();
+
+        Task SendRemoteFiles(List<string> files);
     }
 }

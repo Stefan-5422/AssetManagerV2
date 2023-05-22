@@ -21,7 +21,30 @@ public class RemoteFileService : IRemoteFileService
         this.userConfigProvider = userConfigProvider;
     }
 
-    public async Task<List<RemoteFile>> GetRemoteFiles()
+    public async Task DownloadRemoteFile(string guid)
+    {
+        HttpRequestMessage message = new(HttpMethod.Get, $"http://{userConfigProvider.Config.ServerName}/Content/{guid}");
+        HttpResponseMessage result = await httpClient.SendAsync(message);
+
+        string? filename = result.Content.Headers.ContentDisposition?.FileName;
+
+        if (filename is null)
+        {
+            //TODO: Give user rich error
+            return;
+        }
+
+        if (!Directory.Exists("./Downloads"))
+        {
+            Directory.CreateDirectory("./Downloads");
+        }
+
+        FileStream f = File.OpenWrite($"./Downloads/{Guid.NewGuid()}-{filename}");
+
+        result.Content.ReadAsStream().CopyTo(f);
+    }
+
+    public async Task<List<Models.RemoteFile>> GetRemoteFiles()
     {
         HttpRequestMessage message = new(HttpMethod.Get, $"http://{userConfigProvider.Config.ServerName}/File/");
         message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", userConfigProvider.Config.ApiToken);
@@ -30,19 +53,14 @@ public class RemoteFileService : IRemoteFileService
         if (result.IsSuccessStatusCode)
         {
             Stream stream = await result.Content.ReadAsStreamAsync();
-            List<RemoteFile> files = await JsonSerializer.DeserializeAsync<List<RemoteFile>>(stream) ?? new List<RemoteFile>();
-
-            foreach(RemoteFile file in files)
-            {
-                file.DataContext = file;
-            }
+            List<Models.RemoteFile> files = await JsonSerializer.DeserializeAsync<List<Models.RemoteFile>>(stream) ?? new List<Models.RemoteFile>();
 
             return files;
         }
-        return new List<RemoteFile>();
+        return new List<Models.RemoteFile>();
     }
 
-    public async void SendRemoteFiles(List<string> files)
+    public async Task SendRemoteFiles(List<string> files)
     {
         MultipartFormDataContent content = new();
         foreach (string file in files)

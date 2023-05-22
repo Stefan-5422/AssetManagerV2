@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -16,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AssetManagerDesktop.Models;
 using AssetManagerDesktop.Services;
 using AssetManagerDesktop.Services.Implementations;
 using Microsoft.Win32;
@@ -29,7 +31,7 @@ namespace AssetManagerDesktop
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public ObservableCollection<RemoteFile> Files
+        public ObservableCollection<Models.RemoteFile> Files
         {
             get => remoteFiles;
             set
@@ -40,15 +42,11 @@ namespace AssetManagerDesktop
         }
 
         private readonly IRemoteFileService remoteFileService;
-        private readonly UserConfigProvider userConfigProvider;
-        private ObservableCollection<RemoteFile> remoteFiles;
+        private ObservableCollection<Models.RemoteFile> remoteFiles = new();
 
         public MainPage(UserConfigProvider userConfigProvider, IRemoteFileService remoteFileService)
         {
-            this.userConfigProvider = userConfigProvider;
             this.remoteFileService = remoteFileService;
-
-            Files = new ObservableCollection<RemoteFile>();
 
             DataContext = this;
             InitializeComponent();
@@ -56,7 +54,7 @@ namespace AssetManagerDesktop
 
         public async Task InitializeContent()
         {
-            Files = new ObservableCollection<RemoteFile>(await remoteFileService.GetRemoteFiles());
+            Files = new ObservableCollection<Models.RemoteFile>(await remoteFileService.GetRemoteFiles());
             OnPropertyChanged(nameof(Files));
         }
 
@@ -73,18 +71,31 @@ namespace AssetManagerDesktop
             return true;
         }
 
-        private void SelectFilesButton_OnClick(object sender, RoutedEventArgs e)
+        private void DownloadButton_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();/*
+            ButtonBase? button = sender as ButtonBase;
+
+            string remoteFileName = (button?.DataContext as RemoteFile)?.RemoteName ?? "";
+
+            remoteFileService.DownloadRemoteFile(remoteFileName);
+        }
+
+        private async void ReloadButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Files = new ObservableCollection<Models.RemoteFile>(await remoteFileService.GetRemoteFiles());
+        }
+
+        private async void SelectFilesButton_OnClick(object sender, RoutedEventArgs e)
+        {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Multiselect = true;
 
             if (dialog.ShowDialog() == true)
             {
                 List<string> files = dialog.FileNames.ToList();
-                remoteFileService.SendRemoteFiles(files);
-                //await InitializeContent();
-            }*/
+                await remoteFileService.SendRemoteFiles(files);
+                await InitializeContent();
+            }
         }
     }
 }

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:AssetManagerDesktop"
+      xmlns:models="clr-namespace:AssetManagerDesktop.Models"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       d:DataContext="{d:DesignInstance Type=local:MainPage, IsDesignTimeCreatable=False}">
@@ -15,12 +16,25 @@
         </Grid.RowDefinitions>
         <StackPanel FlowDirection="LeftToRight" Orientation="Horizontal">
             <TextBlock Text="Upload" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" />
-            <Button Content="Select Files" Click="SelectFilesButton_OnClick" />
+            <TextBlock Width="100" />
+            <Button BorderBrush="Transparent" Background="#c12a47" FontSize="10" Foreground="White" Margin="2" Content="Select Files" Click="SelectFilesButton_OnClick" />
+            <TextBlock Width="100" />
+            <Button BorderBrush="Transparent" Background="#eeeeee" FontSize="10" Foreground="White" Margin="2" Content="Reload" Click="ReloadButton_OnClick" />
         </StackPanel>
-        <ListView Background="Transparent" BorderBrush="Transparent" Grid.Row="1" ItemsSource="{Binding Path=Files, Mode=OneWay}">
+        <ListView MaxHeight="300" Grid.Row="2" Background="Transparent" BorderBrush="Transparent" ItemsSource="{Binding  Path=Files, Mode=OneWay}">
             <ListView.ItemTemplate>
-                <DataTemplate>
-                    <local:RemoteFile DataContext="{Binding}" MaxWidth="300" MaxHeight="100" />
+                <DataTemplate DataType="{x:Type models:RemoteFile}">
+                    <!--<local:RemoteFile DataContext="{Binding}" MaxWidth="300" MaxHeight="100" />-->
+                    <!--<TextBlock Text="{Binding Path=FileName}" />-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle Grid.ColumnSpan="2" Grid.Column="0" Fill="LightGray" RadiusX="1" RadiusY="1" />
+                        <TextBlock Grid.Column="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="5" Text="{Binding Path=FileName, Mode=OneWay}" />
+                        <Button Click="DownloadButton_OnClick"  Grid.Column="1"  VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Center" Content="Download" FontSize="5" BorderBrush="Transparent" />
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

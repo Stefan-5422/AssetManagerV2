@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManager", "AssetManage
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagerDesktop", "AssetManagerDesktop\AssetManagerDesktop.csproj", "{CB545260-A303-4D1A-8485-9E0747AE3C5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManagerWeb", "AssetManagerWeb\AssetManagerWeb.csproj", "{559060F1-EC4D-4084-B79F-4541781E0B00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagerWeb", "AssetManagerWeb\AssetManagerWeb.csproj", "{559060F1-EC4D-4084-B79F-4541781E0B00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

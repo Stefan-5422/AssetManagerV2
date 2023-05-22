@@ -28,6 +28,13 @@
             <param name="files">The List of files that should be uploaded</param>
             <returns>Nothing :) (hopefully)</returns>
         </member>
+        <member name="M:AssetManager.Controllers.FileController.Delete(System.Guid)">
+            <summary>
+            Allows the user to delete one of his uploaded media
+            </summary>
+            <param name="guid">The specified media</param>
+            <returns>Nothing</returns>
+        </member>
         <member name="M:AssetManager.Controllers.FileController.GetUsersItems">
             <summary>
             Returns all of the Files the user has Uploaded
@@ -38,6 +45,12 @@
             <summary>
             The controller responsible for managing the creation and deletion of users aswell as Authenthication
             </summary>
+        </member>
+        <member name="M:AssetManager.Controllers.UserController.Delete">
+            <summary>
+            Allows user to remove their Account
+            </summary>
+            <returns>Nothing</returns>
         </member>
         <member name="M:AssetManager.Controllers.UserController.Login(AssetManager.Controllers.UserController.AuthenticationParams)">
             <summary>
@@ -52,6 +65,13 @@
             </summary>
             <param name="parameters">The shema of data required for a users login</param>
             <returns>Nothing :)</returns>
+        </member>
+        <member name="M:AssetManager.Controllers.UserController.Update(AssetManager.Controllers.UserController.PasswordChangeParams)">
+            <summary>
+            Change the password for the given user
+            </summary>
+            <param name="parameters"> The new password for the user</param>
+            <returns>Nothing</returns>
         </member>
         <member name="T:AssetManager.Migrations.yes">
             <inheritdoc />

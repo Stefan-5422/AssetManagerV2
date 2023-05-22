@@ -1,0 +1,16 @@
+﻿@inject NavigationManager navigator
+
+	<div>
+		<p>@FileName</p>
+		<button class="btn btn-primary" @onclick="Download">Open/Download</button>
+	</div>
+
+@code {
+	[Parameter] public string FileName { get; set; }
+	[Parameter] public string RemoteName { get; set; }
+
+	private void Download()
+	{
+		navigator.NavigateTo($"http://localhost:5000/Content/{RemoteName}");		
+	}
+}

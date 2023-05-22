@@ -1,0 +1,54 @@
+﻿@page "/profile"
+@using Blazored.LocalStorage
+@using Microsoft.JSInterop
+@using System.Net.Http.Headers;
+@using System.Text.Json;
+@inject IJSRuntime JSRuntime
+@inject ILocalStorageService localStorageService
+@inject NavigationManager navigator
+@inject ILogger<Index> logger
+@inject HttpClient httpClient
+
+
+
+	
+
+<div style="justify-items: center; width: 90%">
+	<div style="justify-items: center; width: 100%">
+		<h1>Profile</h1>
+	</div>
+	<div style="max-height: 50vh; overflow-y: scroll; overflow-x: hidden; display: grid; grid-template-columns: repeat(2, 1fr);" id="items">
+		@foreach(RemoteFile file in files)
+		{
+			<RemoteFileComponent FileName="@file.FileName" RemoteName="@file.RemoteName" />
+		}
+	</div>
+</div>
+
+
+@code {
+
+	private List<RemoteFile> files = new();
+	protected override async Task OnInitializedAsync()
+	{
+		string key = await localStorageService.GetItemAsStringAsync("api-token");
+
+		if (String.IsNullOrEmpty(key))
+		{
+			navigator.NavigateTo("/Login");
+		}
+
+		HttpRequestMessage message = new(HttpMethod.Get, $"http://localhost:5000/File/");
+		message.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", await localStorageService.GetItemAsStringAsync("api-token"));
+		HttpResponseMessage result = await httpClient.SendAsync(message);
+
+		if (result.IsSuccessStatusCode)
+		{
+			Stream stream = await result.Content.ReadAsStreamAsync();
+			files = await JsonSerializer.DeserializeAsync<List<RemoteFile>>(stream) ?? new List<RemoteFile>();
+		}
+
+		base.OnInitialized();
+	}
+
+}
