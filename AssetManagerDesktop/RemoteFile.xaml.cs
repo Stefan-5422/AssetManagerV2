@@ -15,7 +15,6 @@ namespace AssetManagerDesktop
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private string fileName = String.Empty;
         [JsonPropertyName("name")]
         public string FileName
         {
@@ -27,7 +26,6 @@ namespace AssetManagerDesktop
             }
         }
 
-        private string guid = String.Empty;
         [JsonPropertyName("guid")]
         public string RemoteName
         {
@@ -39,12 +37,14 @@ namespace AssetManagerDesktop
             }
         }
 
+        private string fileName = String.Empty;
+        private string guid = String.Empty;
+
         public RemoteFile()
         {
             DataContext = this;
             InitializeComponent();
         }
-
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
@@ -57,11 +57,6 @@ namespace AssetManagerDesktop
             field = value;
             OnPropertyChanged(propertyName);
             return true;
-        }
-
-        protected override void OnInitialized(EventArgs e)
-        {
-            base.OnInitialized(e);
         }
     }
 }

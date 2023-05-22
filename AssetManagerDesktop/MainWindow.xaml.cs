@@ -15,28 +15,28 @@ using System.Windows.Shapes;
 
 namespace AssetManagerDesktop
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary
-	public partial class MainWindow : Window
-	{
-
-		private readonly LoginPage loginPage;
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary
+    public partial class MainWindow : Window
+    {
+        private readonly LoginPage loginPage;
         private readonly MainPage mainPage;
-		public MainWindow(LoginPage login, MainPage main)
-		{
-			InitializeComponent();
+
+        public MainWindow(LoginPage login, MainPage main)
+        {
+            InitializeComponent();
             login.LoginSuccess += Page_LoginSuccess;
 
-			this.PageFrame.Child = login;
-			this.mainPage = main;
-			this.loginPage = login;
-		}
+            this.PageFrame.Child = login;
+            this.mainPage = main;
+            this.loginPage = login;
+        }
 
-		private async void Page_LoginSuccess(object? sender, EventArgs e)
-		{
-			await mainPage.InitializeContent();
-			this.PageFrame.Child = mainPage;
-		}
-	}
+        private async void Page_LoginSuccess(object? sender, EventArgs e)
+        {
+            this.PageFrame.Child = mainPage;
+            await mainPage.InitializeContent();
+        }
+    }
 }

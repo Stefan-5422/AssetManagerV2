@@ -1,23 +1,26 @@
 ﻿<UserControl x:Class="AssetManagerDesktop.MainPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:AssetManagerDesktop"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
       d:DataContext="{d:DesignInstance Type=local:MainPage, IsDesignTimeCreatable=False}">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="10*" />
         </Grid.RowDefinitions>
-        <TextBlock Background="Transparent" Text="TEST TEST TEST TEST"/>
-        <ListView Background="Green" Grid.Row="1" ItemsSource="{Binding Path=Files, Mode=OneWay}">
-           <ListView.ItemTemplate>
+        <StackPanel FlowDirection="LeftToRight" Orientation="Horizontal">
+            <TextBlock Text="Upload" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" />
+            <Button Content="Select Files" Click="SelectFilesButton_OnClick" />
+        </StackPanel>
+        <ListView Background="Transparent" BorderBrush="Transparent" Grid.Row="1" ItemsSource="{Binding Path=Files, Mode=OneWay}">
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <local:RemoteFile MaxWidth="300" MaxHeight="100"/>
+                    <local:RemoteFile DataContext="{Binding}" MaxWidth="300" MaxHeight="100" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -64,7 +64,7 @@ namespace AssetManager.Controllers
 
         private User? Authenthicate(AuthenticationParams parameters)
         {
-            return dbContext.Users.First(a => a.Name == parameters.Name && a.Password == parameters.Password);
+            return dbContext.Users.FirstOrDefault(a => a.Name == parameters.Name && a.Password == parameters.Password);
         }
 
         private string GenerateToken(User user)

@@ -10,5 +10,6 @@ namespace AssetManagerDesktop.Services
     {
         Task<List<RemoteFile>> GetRemoteFiles();
 
+        void SendRemoteFiles(List<string> files);
     }
 }
