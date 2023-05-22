@@ -20,20 +20,23 @@ namespace AssetManagerDesktop
 	/// </summary
 	public partial class MainWindow : Window
 	{
-		public MainWindow()
+
+		private readonly LoginPage loginPage;
+        private readonly MainPage mainPage;
+		public MainWindow(LoginPage login, MainPage main)
 		{
 			InitializeComponent();
+            login.LoginSuccess += Page_LoginSuccess;
 
-			LoginPage page = new LoginPage();
-
-			page.LoginSuccess += Page_LoginSuccess;
-
-			this.PageFrame.Child = page;
+			this.PageFrame.Child = login;
+			this.mainPage = main;
+			this.loginPage = login;
 		}
 
-		private void Page_LoginSuccess(object? sender, EventArgs e)
+		private async void Page_LoginSuccess(object? sender, EventArgs e)
 		{
-			this.PageFrame.Child = new MainPage();
+			await mainPage.InitializeContent();
+			this.PageFrame.Child = mainPage;
 		}
 	}
 }

@@ -6,8 +6,8 @@
       xmlns:local="clr-namespace:AssetManagerDesktop"
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800">
-
+      d:DesignHeight="450" d:DesignWidth="800"
+      d:DataContext="{d:DesignInstance Type=local:LoginPage, IsDesignTimeCreatable=False}">
     <Grid>
         <Grid Width="800" Height="450">
             <Grid.ColumnDefinitions>
@@ -42,8 +42,8 @@
                     </Ellipse>
                     <StackPanel Margin="10, 0, 0 ,3"  Grid.Row="2" VerticalAlignment="Bottom" Orientation="Horizontal">
                         <TextBlock FontSize="8" Foreground="White" Text="Selected Server: "/>
-                        <TextBlock TextDecorations="underline" FontSize="8" Foreground="White" Text="192.168.0.10"/>
-                        <Button Height="14" Background="Transparent" Padding="0,0,0,03" BorderBrush="Transparent">
+                        <TextBlock TextDecorations="underline" FontSize="8" Foreground="White" Text="{Binding Path=ServerAddress, Mode=OneWay}"/>
+                        <Button Height="14" Background="Transparent" Padding="0,0,0,03" Click="ChangeServerButton_OnClick" BorderBrush="Transparent">
                             <TextBlock FontSize="7" FontWeight="Bold" Foreground="#8ae3bb" Text="Change"/>
                         </Button>
                     </StackPanel>
@@ -63,16 +63,16 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
-                    <xctk:WatermarkTextBox BorderBrush="Transparent" Watermark="Username" FontSize="8" Background="#eeeeee" Margin="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/>
-                    <xctk:WatermarkPasswordBox BorderBrush="Transparent" Watermark="Password" FontSize="8" Background="#eeeeee" Margin="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" />
-                    <Button BorderBrush="Transparent" Background="#c12a47" FontSize="10" Foreground="White" Margin="2" Grid.Column="1" Grid.Row="4" Content="Login" Click="Button_Click"/>
-                    <Button BorderBrush="Transparent" Background="#eeeeee" FontSize="10" Margin="2" Grid.Column="2" Grid.Row="4" Content="Register"/>
+                    <xctk:WatermarkTextBox BorderBrush="Transparent" Watermark="Username" Text="{Binding Path=Username}" FontSize="8" Background="#eeeeee" Margin="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/>
+                    <xctk:WatermarkPasswordBox BorderBrush="Transparent" Watermark="Password" Text="{Binding Path=Password}" FontSize="8" Background="#eeeeee" Margin="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" />
+                    <Button BorderBrush="Transparent" Background="#c12a47" FontSize="10" Foreground="White" Margin="2" Grid.Column="1" Grid.Row="4" Content="Login" Click="LoginButton_OnClick"/>
+                    <Button BorderBrush="Transparent" Background="#eeeeee" FontSize="10" Margin="2" Grid.Column="2" Grid.Row="4" Content="Register" Click="RegisterButton_OnClick"/>
                     <TextBlock Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Foreground="#c12a47" HorizontalAlignment="Center" />
                 </Grid>
-                <xctk:ChildWindow Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" IsModal="True" >
+                <xctk:ChildWindow Name="ChangeServerWindow" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" IsModal="False" >
                     <StackPanel>
-                        <xctk:WatermarkPasswordBox Margin="10" Width="200" Watermark="Server Address"/>
-                        <Button BorderBrush="Transparent" Background="#c12a47" FontSize="10" Foreground="White" Margin="2" Grid.Column="1" Grid.Row="4" Content="Save"/>
+                        <xctk:WatermarkTextBox Name="ChangeServerTextBox" Margin="10" Width="200" Watermark="Server Address"/>
+                        <Button Click="ChangeServerSubmit_OnClick" BorderBrush="Transparent" Background="#c12a47" FontSize="10" Foreground="White" Margin="2" Grid.Column="1" Grid.Row="4" Content="Save"/>
                     </StackPanel>
                 </xctk:ChildWindow>
             </Grid>

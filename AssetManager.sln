@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManager", "AssetManage
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssetManagerDesktop", "AssetManagerDesktop\AssetManagerDesktop.csproj", "{CB545260-A303-4D1A-8485-9E0747AE3C5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetManagerWeb", "AssetManagerWeb\AssetManagerWeb.csproj", "{559060F1-EC4D-4084-B79F-4541781E0B00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,14 @@ Global
 		{CB545260-A303-4D1A-8485-9E0747AE3C5E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CB545260-A303-4D1A-8485-9E0747AE3C5E}.Release|x64.ActiveCfg = Release|x64
 		{CB545260-A303-4D1A-8485-9E0747AE3C5E}.Release|x64.Build.0 = Release|x64
+		{559060F1-EC4D-4084-B79F-4541781E0B00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{559060F1-EC4D-4084-B79F-4541781E0B00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{559060F1-EC4D-4084-B79F-4541781E0B00}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{559060F1-EC4D-4084-B79F-4541781E0B00}.Debug|x64.Build.0 = Debug|Any CPU
+		{559060F1-EC4D-4084-B79F-4541781E0B00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{559060F1-EC4D-4084-B79F-4541781E0B00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{559060F1-EC4D-4084-B79F-4541781E0B00}.Release|x64.ActiveCfg = Release|Any CPU
+		{559060F1-EC4D-4084-B79F-4541781E0B00}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
